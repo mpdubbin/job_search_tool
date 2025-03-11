@@ -1,6 +1,7 @@
 from playwright.sync_api import sync_playwright
 
-def get_full_page_html(url: str, LINKEDIN_USERNAME: str, LINKEDIN_PASSWORD, str) -> str:
+def get_full_page_html(url: str) -> str:
+    """Scrape full HTML page for a single webpage."""
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=False) # Must be false for cloudflare
         page = browser.new_page()
@@ -23,6 +24,7 @@ def get_full_page_html(url: str, LINKEDIN_USERNAME: str, LINKEDIN_PASSWORD, str)
 
 def get_full_page_url_linkedin(url: str, linkedin_username: str, linkedin_password: str) -> str:
     with sync_playwright() as p:
+        """Scrape full HTML page for a single LinkedIn webpage."""
         browser = p.chromium.launch(headless=False)  # Must be False for Cloudflare
         page = browser.new_page()
 

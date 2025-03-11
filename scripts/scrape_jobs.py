@@ -14,8 +14,6 @@ LINKEDIN_USERNAME = os.getenv("LINKEDIN_USERNAME")
 LINKEDIN_PASSWORD = os.getenv("LINKEDIN_PASSWORD")
 
 
-
-
 # Load job posting URLs from file
 with open("data/rag/job_urls.txt", "r") as f:
     job_urls = [line.strip() for line in f.readlines()]
@@ -24,7 +22,7 @@ with open("data/rag/job_urls.txt", "r") as f:
 os.makedirs("data/rag/raw_html", exist_ok=True)
 
 
-# Scrape n' Save each URL
+# Scrape n' Save each URL's HTML
 for idx, url in enumerate(job_urls):
     if 'linkedin' in url:
         html_content = get_full_page_url_linkedin(url, LINKEDIN_USERNAME, LINKEDIN_PASSWORD)
