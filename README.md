@@ -75,17 +75,46 @@ I wrote a simple script using [Selenium ](https://selenium-python.readthedocs.io
 
 While I'm familiar with Selenium and used it to log in to websites before, I've never used [Playwright](https://playwright.dev/) before, and read that it is quite robust. 
 
-After some tinkering I was able to successfully pull all job posting webpages (`scripts/module_scrape.py`).
+After some tinkering I was able to successfully pull all job posting webpages (`scripts/module_scrape.py`) and saved them to `data/rag/raw_html`.
+
+## 2. Parsing and LLM-based Extraction (Ollama + RAG)  
+
+To answer the question above, I asked ChatGPT to give me the number of tokens in each HTML file:
+
+| File | Token Count |
+|---|---|
+| job_0.html | 4036 |
+| job_1.html | 12578 |
+| job_2.html | 1645 |
+| job_3.html | 39067 |
+| job_4.html | 16577 |
+| job_5.html | 4936 |
+| job_6.html | 15259 |
+| job_7.html | 7677 |
+| job_8.html | 11704 |
+| job_9.html | 9467 |
+
+Resulting in a total token count of 122,946 which falls below the 151,000 maximum specified by Ollama, leaving room to spare for the structured JSON component. 
+
+Thought: I currently don't know, but I wouldn't be surprised if queries are super slow due to each query reading 122k+ tokens as context. If that's the case I can look deeper into the HTML attributes and trim down the passed HTML.
+
+Next, and I'm not sure this is really necessary, but I manually parsed each job listing into JSON format, as described in the section above (`data/rag/manual_parse.json`).
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 README In Progress
 ---
-
-
-
-
-
-
 
 ## Future Features:
 
