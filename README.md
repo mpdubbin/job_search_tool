@@ -77,8 +77,8 @@ While I'm familiar with Selenium and used it to log in to websites before, I've 
 
 After some tinkering I was able to successfully pull all job posting webpages (`scripts/module_scrape.py`).
 
----
-In Progress
+
+README In Progress
 ---
 
 
