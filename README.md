@@ -51,7 +51,7 @@ In my first brainstorming session I came up with the following steps:
 - If Shiny or Dash: display a table of extracted jobs with filtering, sorting, and CRUD operations. Else, autopopulate Numbers table.
 - Add simple analytics like job counts by company or average salary ranges.
 
-## 1. Web Scraping & Parsing (scrape branch)
+## 1. Web Scraping & Parsing
 
 To start, I looked at the [DOM](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model/Introduction) of 10 of the jobs that I applied to (links in `data/rag/job_urls.txt`, though by the time you're reading this they may be 404ed) to observe any pattern in attributes (job title company name) tags. I observed that some of the attribute locations across job sites were rather consistent:
 - job titles in h1 or h2 tags
@@ -78,9 +78,6 @@ While I'm familiar with Selenium and used it to log in to websites before, I've 
 After some tinkering I was able to successfully pull all job posting webpages (`scripts/module_scrape.py`).
 
 
-## 2. Parsing and LLM-based Extraction (rag branch)
-
-I'm not entirely sure this step is necessary, but I manually pulled the attributes out of the HTML files and input them into JSON format, like above. The idea is to give Ollama exactly what I'm looking for: I want exactly "Dubbin's Delicious Donut Dispensary" from the HTML, and it must be classified as the company_name.
 
 
 
