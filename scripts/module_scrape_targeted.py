@@ -17,15 +17,6 @@ def extract_relevant_content(html: str) -> str:
         parent = element.parent.name
         if parent not in ["link", "meta", "script"]:
             extracted_data.append(element.strip())
-
-    # Extract alt text from images
-    for img in soup.find_all("img", alt=True):
-        extracted_data.append(img["alt"])
-    
-    # Extract <code> elements with id containing "bpr-guid-"
-    for code in soup.find_all("code", id=True):
-        if "bpr-guid-" in code["id"]:
-            extracted_data.append(code.get_text(strip=True))
     
     return "\n".join(filter(None, extracted_data))
 

@@ -1,5 +1,16 @@
+from playwright.sync_api import sync_playwright
+
+from dotenv import load_dotenv
+from module_ollama_query import *
 import json 
 import ollama
+import os
+import time
+
+# Load environment variables
+load_dotenv()
+LINKEDIN_USERNAME = os.getenv("LINKEDIN_USERNAME")
+LINKEDIN_PASSWORD = os.getenv("LINKEDIN_PASSWORD")
 
 
 def load_html(file_path):
@@ -14,7 +25,6 @@ with open("data/rag/manual_parse.json", "r", encoding="utf-8") as file:
 
 # Add full HTML to context
 context = "\n\n".join([
-    "Testing scripts/ollama_query.py\n\n\n"
     "Unique Job Posting\n"
     "---\n"
     f"Company: {job['company']} ; Job Title: {job['job_title']}; "
@@ -25,11 +35,15 @@ context = "\n\n".join([
     for job in job_data
 ])
 
-with open('data/rag/context_test_output_multiple.txt', 'w') as f:
-    f.write(context)
+# Test url, for testing purposes
+test_url = "https://www.linkedin.com/jobs/collections/recommended/?currentJobId=4039885789"
+query_html = webpage_call(test_url, LINKEDIN_USERNAME, LINKEDIN_PASSWORD)
 
-# # Example query
-# query = "What is the highest salary among these job postings?"
+
+# Example query
+query = f"With this HTML as input, please pull the job title, company name, in-office/hybrid/remote status, job location, salary floor, salary ceiling. {query_html}"
+
+print(query)
 
 # # Pass the context and query to Ollama
 # response = ollama.chat(
