@@ -28,12 +28,12 @@
     },
     {
         "html": "data/rag/raw_html/job_3.html",
-        "company": "Johns Hopkins University Applied Physics Laboratory",
-        "job_title": "Systems Data Analyst",
-        "salary_floor": 90000,
-        "salary_ceiling": 230000, 
-        "office_status": "On-Site",
-        "office_location": "Laurel, MD"
+        "company": "Stripe",
+        "job_title": "Data Analyst",
+        "salary_floor": 146000,
+        "salary_ceiling": 220300, 
+        "office_status": "Remote",
+        "office_location": null
     },
     {
         "html": "data/rag/raw_html/job_4.html",
@@ -57,8 +57,8 @@
         "html": "data/rag/raw_html/job_18.html",
         "company": "Disney",
         "job_title": "Data Analyst",
-        "salary_floor": 98000,
-        "salary_ceiling": 131000,
+        "salary_floor": [98000, 93400],
+        "salary_ceiling": [131000, 125200],
         "office_status": "In-Office",
         "office_location": ["New York, New York", "Santa Monica, California"]
     },

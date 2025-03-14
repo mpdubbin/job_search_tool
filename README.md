@@ -96,9 +96,66 @@ To answer the question above, I asked ChatGPT to give me the number of tokens in
 
 Resulting in a total token count of 122,946 which falls below the 151,000 maximum specified by Ollama, leaving room to spare for the structured JSON component. 
 
-Thought: I currently don't know, but I wouldn't be surprised if queries are super slow due to each query reading 122k+ tokens as context. If that's the case I can look deeper into the HTML attributes and trim down the passed HTML.
+However, the following day I asked ChatGPT again how many tokens were in each file and it responded with these values:
 
-Next, and I'm not sure this is really necessary, but I manually parsed each job listing into JSON format, as described in the section above (`data/rag/manual_parse.json`).
+| File | Token Count |
+|---|---|
+| job_0.html | 6302 |
+| job_1.html | 153545 |
+| job_2.html | 3908 |
+| job_3.html | 72881 |
+| job_4.html | 50431 |
+| job_5.html | 6996 |
+| job_6.html | 49313 |
+| job_7.html | 22355 |
+| job_8.html | 152252 |
+| job_9.html | 18006 |
+
+Well above the 151k maximum context window. The two LinkedIn postings, jobs 1 and 8, have the most tokens and can easily be parsed down - they HTML includes all of the sidebar:
+
+![linkedin sidebar](assets/readme/Screenshot%202025-03-12%20at%2012.46.52 PM.png)
+
+However, even with these two removed, the total is still well above 151k (~230k). I can either: reduce the amount of jobs to bring into context, or spend a little more time figuring out patterns. I chose option 2 spent some time in the DOM and .html files to figure out similarities, so that instead of pulling all of the webpage I can target attributes. 
+
+I first looked at the LinkedIn posts and see that over half of the webpage is in \<meta>, \<script>, and \<link> tags, and manually checked to see if they contained any important information (they didn't). With the reduced .html files in hand, I reasked ChatGPT to count the tokens in each file, resulting in: 
+
+| File | Token Count |
+|---|---|
+| job_0.html | 3021 |
+| job_1.html | 3629 |
+| job_2.html | 1268 |
+| job_3.html | 1193 |
+| job_4.html | 15694 |
+| job_5.html | 1933 |
+| job_6.html | 8127 |
+| job_7.html | 1420 |
+| job_8.html | 3654 |
+| job_9.html | 749 |
+
+Ok, promising! 
+
+### Manual Parsing
+
+Next, I manually parsed each job listing into JSON format, as described in the section above (`data/rag/manual_parse.json`). This is intended to be model context so refine the model's ability to understand what I'm looking for: job title, company name, etc. There was a slight complexity in that a few positions listed hourly rates instead of yearly salary, so those I multiplied the ceiling and floor values by 2,080 (8 hours/day * 5 days/week * 52 weeks/year). I'll have to prompt Ollama that if values are <$100 to multiply by 2,080. Also, some jobs listed multiple locations (like the Disney job [job_6]) with multiple salary ranges, so those must be output as a list. Eventually, I can add user location or allow the user to input desired locations (like, I prefer New York or east coast opportunities).
+
+After that I manually CMD + F'ing each file to see if the necessary information is present.
+
+| File | Necessary Information? |
+|---|---|
+| job_0.html | 1 |
+| job_1.html | 1 |
+| job_2.html | 1 |
+| job_3.html | 1 |
+| job_4.html | 1 |
+| job_5.html | 1 |
+| job_6.html | 1 |
+| job_7.html | 1 |
+| job_8.html | 1 |
+| job_9.html | 1 |
+
+Even more promising!
+
+
 
 
 
@@ -118,6 +175,8 @@ README In Progress
 
 ## Future Features:
 
-- Add a networking feature:
+- User location or allow the user to input desired locations
+    - Preference for a specific city or region
+- Networking tracker:
     - Contact A recommended Job A
     - Contact B connected me with Contact C who recommended Job B
