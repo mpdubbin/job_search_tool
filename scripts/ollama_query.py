@@ -17,14 +17,15 @@ context = "\n\n".join([
     "Testing scripts/ollama_query.py\n\n\n"
     "Unique Job Posting\n"
     "---\n"
-    f"Company: {job_data[0]['company']} ; Job Title: {job_data[0]['job_title']}; "
-    f"Office Status: {job_data[0]['office_status']} ; Location: {job_data[0]['office_location']} ;"
-    f"Salary Floor: {job_data[0]['salary_floor']} ; Salary Ceiling {job_data[0]['salary_ceiling']} ; \n"
-    f"Job Webpage:\n{load_html(job_data[0]['html'])}\n\n"
+    f"Company: {job['company']} ; Job Title: {job['job_title']}; "
+    f"Office Status: {job['office_status']} ; Location: {job['office_location']} ;"
+    f"Salary Floor: {job['salary_floor']} ; Salary Ceiling {job['salary_ceiling']} ; \n"
+    f"Job Webpage:\n{load_html(job['html'])}\n\n"
     "---"
+    for job in job_data
 ])
 
-with open('data/rag/context_test_output.txt', 'w') as f:
+with open('data/rag/context_test_output_multiple.txt', 'w') as f:
     f.write(context)
 
 # # Example query
