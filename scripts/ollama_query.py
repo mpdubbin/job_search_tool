@@ -41,7 +41,7 @@ query_html = webpage_call(test_url, LINKEDIN_USERNAME, LINKEDIN_PASSWORD)
 
 
 # Example query
-query = f"With this HTML as input, please pull the job title, company name, in-office/hybrid/remote status, job location, salary floor, salary ceiling. {query_html}"
+query = f"With this HTML of a job posting as input, return the company name, job title, salary floor, salary ceiling, office status (in-office/hybrid/remote), and job location in table format, like so: |Company Name|Job Title|Salary Floor|Salary Ceiling|Office Status|Office Location|. If the salary floor and salary ceiling are less than $100, then please multiply those values bo 2080. If there are multiple locations, please output the values as a list, like |Austin, TX; San Francisco, CA|. If those different locations have different salaries, please format the same way as the location, in the same order, like so: |Austin, TX ; San Francisco, CA|80,000 ; 90,000|. {query_html}"
 
 print(query)
 
