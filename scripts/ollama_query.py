@@ -1,11 +1,10 @@
 from playwright.sync_api import sync_playwright
 
 from dotenv import load_dotenv
-from module_ollama_query import *
-import json 
+from module_ollama_query import * 
 import ollama
 import os
-import time
+
 
 # Load environment variables
 load_dotenv()
@@ -13,46 +12,63 @@ LINKEDIN_USERNAME = os.getenv("LINKEDIN_USERNAME")
 LINKEDIN_PASSWORD = os.getenv("LINKEDIN_PASSWORD")
 
 
-def load_html(file_path):
-    with open(file_path, "r", encoding="utf-8") as f:
-        return f.read()
-
-
-# Load JSON Data
-with open("data/rag/manual_parse.json", "r", encoding="utf-8") as file:
-    job_data = json.load(file)
-
-
-# Add full HTML to context
-context = "\n\n".join([
-    "Unique Job Posting\n"
-    "---\n"
-    f"Company: {job['company']} ; Job Title: {job['job_title']}; "
-    f"Office Status: {job['office_status']} ; Location: {job['office_location']} ;"
-    f"Salary Floor: {job['salary_floor']} ; Salary Ceiling {job['salary_ceiling']} ; \n"
-    f"Job Webpage:\n{load_html(job['html'])}\n\n"
-    "---"
-    for job in job_data
-])
-
 # Test url, for testing purposes
-test_url = "https://www.linkedin.com/jobs/collections/recommended/?currentJobId=4039885789"
+test_url = "https://boards.greenhouse.io/capitaltg/jobs/4378843007"
 query_html = webpage_call(test_url, LINKEDIN_USERNAME, LINKEDIN_PASSWORD)
 
+# Queries
+query_summary = f"""
+Summarize the following job posting in a **concise and structured format**. Must include key details such as:
+- Job title
+- Company name
+- Job responsibilities
+- Required qualifications
+- Salary range
+- Work environment (Remote, Hybrid, or On-site)
+- Work location (city, state, address)
+- Any unique aspects of the role or company culture
 
-# Example query
-query = f"With this HTML of a job posting as input, return the company name, job title, salary floor, salary ceiling, office status (in-office/hybrid/remote), and job location in table format, like so: |Company Name|Job Title|Salary Floor|Salary Ceiling|Office Status|Office Location|. If the salary floor and salary ceiling are less than $100, then please multiply those values bo 2080. If there are multiple locations, please output the values as a list, like |Austin, TX; San Francisco, CA|. If those different locations have different salaries, please format the same way as the location, in the same order, like so: |Austin, TX ; San Francisco, CA|80,000 ; 90,000|. {query_html}"
+If these details are not present in the supplied job posting, say so.
 
-print(query)
+**Here is the job posting HTML: {query_html}**
+"""
 
-# # Pass the context and query to Ollama
-# response = ollama.chat(
-#     model="mistral",
-#     messages=[
-#         {"role": "system", "content": "You are an AI assistant helping with job analysis."},
-#         {"role": "user", "content": f"Here is job data:\n{context}\n\n{query}"}
-#     ]
-# )
+# Pass the context and query to Ollama
+summary_response = ollama.chat(
+    model="mistral",
+    messages=[
+        {"role": "system", "content": "You are an AI assistant helping with job webpage analysis."},
+        {"role": "user", "content": f"{query_summary}"}
+    ]
+)
 
-# # Print the response
-# print(response["message"]["content"])
+query_structured = f"""Using the following **job summary**, extract job details in **valid JSON format only**.
+
+**Job Summary:**
+
+{summary_response["message"]["content"]}
+
+
+**Expected JSON Output Format:**
+```json
+{{
+    "company": "Example Corp",
+    "job_title": "Data Scientist",
+    "salary_floor": 80000,
+    "salary_ceiling": 120000,
+    "office_status": "Hybrid",
+    "office_location": ["Austin, TX", "San Francisco, CA"]
+}}
+
+Rules:
+
+    If salary floor and ceiling are less than 100, assume they are hourly rates and multiply by 2080 to get annual salary.
+    If salary data is missing, set it as null instead of 0 or incorrect values.
+    Use consistent formatting for "office_status":
+        "Remote" (fully remote)
+        "Hybrid" (mix of remote & in-office)
+        "On-site" (fully in-office)
+    Use an array for "office_location", even if there's only one location.
+
+DO NOT include any additional text, explanations, or formatting—ONLY return valid JSON. 
+"""

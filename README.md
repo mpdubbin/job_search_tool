@@ -157,9 +157,107 @@ Even more promising!
 
 ## Passing Context to Ollama
 
+I first tried this code to pass the context (JSON) and query:
+
+```python
+# Test url, for testing purposes
+test_url = "https://www.linkedin.com/jobs/collections/recommended/?currentJobId=4182517296"
+query_html = webpage_call(test_url, LINKEDIN_USERNAME, LINKEDIN_PASSWORD)
 
 
+# Example query
+query = f"With this HTML of a job posting as input, return the company name, job title, salary floor, salary ceiling, office status (in-office/hybrid/remote), and job location in table format, like so: |Company Name|Job Title|Salary Floor|Salary Ceiling|Office Status|Office Location|. If the salary floor and salary ceiling are less than $100, then please multiply those values bo 2080. If there are multiple locations, please output the values as a list, like |Austin, TX; San Francisco, CA|. If those different locations have different salaries, please format the same way as the location, in the same order, like so: |Austin, TX ; San Francisco, CA|80,000 ; 90,000|. Please only return a response in that table format. Here is the job posting: {query_html}"
 
+# Pass the context and query to Ollama
+response = ollama.chat(
+    model="mistral",
+    messages=[
+        {"role": "system", "content": "You are an AI assistant helping with job webpage analysis."},
+        {"role": "user", "content": f"Here is job data:\n{context}\n\n{query}"}
+    ]
+)
+```
+This was not successful. Both mistral and llama3.2 models returned responses explaining much more than I asked for, and also none of what I asked for. Here is the llama3.2 response:
+
+```txt
+This is a comprehensive overview of Siemens Healthineers, a leading medical technology company with over 125 years of experience. Here are some key takeaways:
+
+**Company Overview**
+
+* Siemens Healthineers is a global leader in healthcare technology, with over 71,000 employees in over 70 countries.
+* The company's portfolio includes in vitro and in vivo diagnostics, image-guided therapy, and cancer care, which is crucial for clinical decision-making and treatment pathways.
+
+**Diversity, Equity, and Inclusion**
+
+* Siemens Healthineers strives to be an attractive employer for talented individuals regardless of their background or protected characteristics.
+* The company aims to promote diversity, equity, and inclusion in its workforce and operations.
+
+**Environmental Sustainability**
+
+* Siemens Healthineers is committed to reducing its collective emissions along the value chain and driving decarbonization.
+* The company aims to achieve net zero by promoting circularity in its products and processes.
+
+**Social Impact**
+
+* Siemens Healthineers focuses on making healthcare accessible and affordable for patients everywhere, especially in remote regions.
+* The company contributes to addressing the workforce skills gap by providing education and training to healthcare professionals worldwide.
+
+**Hiring Trends**
+
+* Siemens Healthineers hires candidates from a variety of sources, including the FDA and University of Maryland.
+* The company operates in a highly competitive medical technology landscape with key competitors like GE Healthcare, Medtronic, and Philips Healthcare.
+
+**Insights into the Company's Commitments**
+
+* Siemens Healthineers is committed to promoting diversity, equity, and inclusion in its workforce and operations.
+* The company aims to reduce its environmental impact through decarbonization and circularity initiatives.
+* Siemens Healthineers prioritizes social impact by making healthcare accessible and affordable for patients everywhere.
+
+**Job Opportunities**
+
+* Siemens Healthineers offers a range of job opportunities across various fields, including engineering, IT, and sales.
+* The company's hiring trends suggest that it is actively seeking talented individuals to join its workforce.
+
+Overall, Siemens Healthineers appears to be a committed and values-driven organization that prioritizes diversity, equity, inclusion, environmental sustainability, and social impact. If you're considering working for the company or applying for one of its job openings, this overview provides valuable insights into its culture and mission.
+```
+
+... After a few hours of prompt engineering, I discovered that the context I was giving Ollama was really confusing it. It kept giving answers that didn't contain any information, or incorrect information, or responded with a lot of extraneous information. So I removed all context (I'm leaving the context in the repo `data/context_obsolete` because it was a good exercise in figuring out which attributes were and weren't useful for containing relevant information) and simply asked llama3.2 to read the condensed HTML and summarize it:
+
+```python
+# Test url, for testing purposes
+test_url = "https://boards.greenhouse.io/capitaltg/jobs/4378843007"
+query_html = webpage_call(test_url, LINKEDIN_USERNAME, LINKEDIN_PASSWORD)
+
+# Queries
+query_summary = f"""
+Summarize the following job posting in a **concise and structured format**. Must include key details such as:
+- Job title
+- Company name
+- Job responsibilities
+- Required qualifications
+- Salary range
+- Work environment (Remote, Hybrid, or On-site)
+- Work location (city, state, address)
+- Any unique aspects of the role or company culture
+
+If these details are not present in the supplied job posting, say so.
+
+**Here is the job posting HTML: {query_html}**
+
+# Pass the context and query to Ollama
+summary_response = ollama.chat(
+    model="llama3.2",
+    messages=[
+        {"role": "system", "content": "You are an AI assistant helping with job webpage analysis."},
+        {"role": "user", "content": f"{query_summary}"}
+    ]
+)
+
+# Print the response
+print(summary_response["message"]["content"])
+"""
+```
+This worked great. And the response was more accurate, and quicker, with llama3.2 than with mistral. The next step is to pass that summary to another query, asking Ollama to structure the output into JSON (so I can convert it to a table for the future user interface).
 
 
 

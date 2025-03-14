@@ -1,7 +1,7 @@
 from playwright.sync_api import sync_playwright
 
 from dotenv import load_dotenv
-from module_scrape_targeted import *
+from scripts.context_obsolete.module_scrape import *
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
@@ -19,20 +19,20 @@ with open("data/rag/job_urls.txt", "r") as f:
     job_urls = [line.strip() for line in f.readlines()]
 
 # Create directory to store raw HTML
-os.makedirs("data/rag/raw_html_targeted", exist_ok=True)
+os.makedirs("data/rag/raw_html", exist_ok=True)
 
 
 # Scrape n' Save each URL's HTML
 for idx, url in enumerate(job_urls):
     if 'linkedin' in url:
         html_content = get_full_page_url_linkedin(url, LINKEDIN_USERNAME, LINKEDIN_PASSWORD)
-        with open(f"data/rag/raw_html_targeted/job_{idx}.html", "w", encoding="utf-8") as f:
+        with open(f"data/rag/raw_html/job_{idx}.html", "w", encoding="utf-8") as f:
             f.write(html_content)
         print(f"Saved: {url}")
         time.sleep(10)
     else:
         html_content = get_full_page_html(url)
-        with open(f"data/rag/raw_html_targeted/job_{idx}.html", "w", encoding="utf-8") as f:
+        with open(f"data/rag/raw_html/job_{idx}.html", "w", encoding="utf-8") as f:
             f.write(html_content)
         print(f"Saved: {url}")
         time.sleep(10) 
