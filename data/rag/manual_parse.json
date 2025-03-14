@@ -54,7 +54,7 @@
         "office_location": "580 Taylor Ave., Annapolis"
     },
     {
-        "html": "data/rag/raw_html/job_18.html",
+        "html": "data/rag/raw_html/job_6.html",
         "company": "Disney",
         "job_title": "Data Analyst",
         "salary_floor": [98000, 93400],
@@ -63,7 +63,7 @@
         "office_location": ["New York, New York", "Santa Monica, California"]
     },
     {
-        "html": "data/rag/raw_html/job_0.html",
+        "html": "data/rag/raw_html/job_7.html",
         "company": "Music & Arts",
         "job_title": "Senior Data & Reporting Analyst",
         "salary_floor": 110000,
@@ -72,7 +72,7 @@
         "office_location": "Frederick, MD "
     },
     {
-        "html": "data/rag/raw_html/job_9.html",
+        "html": "data/rag/raw_html/job_8.html",
         "company": "Perchwell",
         "job_title": "Data Analyst",
         "salary_floor": 120000,
@@ -81,7 +81,7 @@
         "office_location": "New York, NY"
     },
     {
-        "html": "data/rag/raw_html/job_27.html",
+        "html": "data/rag/raw_html/job_9.html",
         "company": "Equip",
         "job_title": "Data Analyst I",
         "salary_floor": 91000,

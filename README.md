@@ -155,6 +155,10 @@ After that I manually CMD + F'ing each file to see if the necessary information 
 
 Even more promising!
 
+## Passing Context to Ollama
+
+
+
 
 
 
