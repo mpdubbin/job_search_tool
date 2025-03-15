@@ -266,7 +266,7 @@ After quite a bit of testing and rewording the prompt, I discovered that there w
 
 I read [this resource](https://www.promptingguide.ai/) on prompt engineering techniques. Because I already put in the work for context, I gravitated towards [few-shot prompting](https://www.promptingguide.ai/techniques/fewshot). 
 
-I went back through the raw job postings and listed out all of the tags that the information was contained in (`scripts/ollma/query_context.txt`). From this, I created the context with fewer, but specific, HTML tags and corresponding desired job details in JSON format.
+I went back through the raw job postings and listed out all of the tags that the information was contained in (`scripts/ollma/query_context.txt`). From this, I created the context with fewer, but specific, HTML tags and corresponding desired job details in JSON format. I returned to [the basics]((https://github.com/ollama/ollama-python/blob/main/examples/structured-outputs.py), instead of the ChatGPT monstrosity I created.
 
 This is still producing inconsistent output. Will troubleshoot (3/15/2025).
 
