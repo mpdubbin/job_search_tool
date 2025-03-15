@@ -3,7 +3,7 @@
 ## Project Background  
 In the flooded tech market of early 2025 (hopefully future me will look back and laugh at how quickly I landed a job during this time) I knew I had to apply to tens if not hundreds of jobs. My personal machine is a MacBook Pro, so I use a Numbers spreadsheet to track my job application and networking progress. I find a job posting then copy and paste attributes from that job posting into a Numbers table. It's tedious, though it's really not that tedious, but as [Perl author Larry Wall said](https://www.brainyquote.com/quotes/larry_wall_141510), "the three chief virtues of a programmer are: Laziness, Impatience and Hubris." And, while thinking about copying and pasting over and over again for the next few months, both that third attribute and this meme came to mind:
 
-![](assets/readme/0cm6yx27tez21.jpg)
+![programmer automation meme](assets/readme/0cm6yx27tez21.jpg)
 
 
 ## Flow-of-Thought Walkthrough
@@ -67,7 +67,7 @@ Therefore, for job title and job description, perhaps I could write a script tha
 
 > My context window is 131k tokens.
 
-Great, time to scrape webpages and see how many tokens they contain.
+Ok, time to scrape webpages and see how many tokens they contain.
 
 ### Selenium/Playwright
 
@@ -111,13 +111,13 @@ However, the following day I asked ChatGPT again how many tokens were in each fi
 | job_8.html | 152252 |
 | job_9.html | 18006 |
 
-Well above the 151k maximum context window. The two LinkedIn postings, jobs 1 and 8, have the most tokens and can easily be parsed down - they HTML includes all of the sidebar:
+Well above the 151k maximum context window. The two LinkedIn postings, jobs 1 and 8, have the most tokens and can easily be parsed down - their HTML includes all of the sidebar:
 
 ![linkedin sidebar](assets/readme/Screenshot%202025-03-12%20at%2012.46.52 PM.png)
 
-However, even with these two removed, the total is still well above 151k (~230k). I can either: reduce the amount of jobs to bring into context, or spend a little more time figuring out patterns. I chose option 2 spent some time in the DOM and .html files to figure out similarities, so that instead of pulling all of the webpage I can target attributes. 
+However, even with these two LinkedIn posts removed from the analysis, the total is still well above 151k (~230k). I can either: reduce the amount of jobs to bring into context, or spend a little more time figuring out patterns. As I am in exploratory mode, I chose option 2 and spent time in the DOM and .html files to figure out similarities, so that instead of pulling all of the webpage I can target attributes for lower token counts. 
 
-I first looked at the LinkedIn posts and see that over half of the webpage is in \<meta>, \<script>, and \<link> tags, and manually checked to see if they contained any important information (they didn't). With the reduced .html files in hand, I reasked ChatGPT to count the tokens in each file, resulting in: 
+I first looked at the LinkedIn posts and see that over half of the webpage is in \<meta>, \<script>, and \<link> tags, and manually checked to see if they contained any important information (they didn't). I wrote a Playwright script that pulled everything that isn't in one of those three tags. With the reduced .html files in hand I reasked ChatGPT to count the tokens in each file, resulting in: 
 
 | File | Token Count |
 |---|---|
@@ -136,7 +136,7 @@ Ok, promising!
 
 ### Manual Parsing
 
-Next, I manually parsed each job listing into JSON format, as described in the section above (`data/rag/manual_parse.json`). This is intended to be model context so refine the model's ability to understand what I'm looking for: job title, company name, etc. There was a slight complexity in that a few positions listed hourly rates instead of yearly salary, so those I multiplied the ceiling and floor values by 2,080 (8 hours/day * 5 days/week * 52 weeks/year). I'll have to prompt Ollama that if values are <$100 to multiply by 2,080. Also, some jobs listed multiple locations (like the Disney job [job_6]) with multiple salary ranges, so those must be output as a list. Eventually, I can add user location or allow the user to input desired locations (like, I prefer New York or east coast opportunities).
+Next, I manually parsed each job listing into JSON format, as described in the section above (`data/rag/manual_parse.json`). This is intended to be model context to refine the model's ability to understand what I'm looking for: job title, company name, etc. There was a slight complexity in that a few positions listed hourly rates instead of yearly salary, so those I multiplied the ceiling and floor values by 2,080 (8 hours/day * 5 days/week * 52 weeks/year). I'll have to prompt Ollama that if values are <$100 to multiply by 2,080. Also, some jobs listed multiple locations (like the Disney job [job_6]) with multiple salary ranges, so those must be output as a list. Eventually, I can add user location or allow the user to input desired locations (like, I prefer New York or east coast opportunities).
 
 After that I manually CMD + F'ing each file to see if the necessary information is present.
 
@@ -259,8 +259,16 @@ print(summary_response["message"]["content"])
 ```
 This worked great. And the response was more accurate, and quicker, with llama3.2 than with mistral. The next step is to pass that summary to another query, asking Ollama to structure the output into JSON (so I can convert it to a table for the future user interface).
 
+### The Next Day
+After quite a bit of testing and rewording the prompt, I discovered that there was real inconsistencies in what Ollama was returning: sometimes *most* of the attributes were pulled and structured correctly, but most of the time Ollama returned incorrect information or stated that information was missing when it was clearly present in the source. So after resonating with this poor fellow:
 
+![prompt engineering meme](assets/readme/prompt_engineer.png)
 
+I read [this resource](https://www.promptingguide.ai/) on prompt engineering techniques. Because I already put in the work for context, I gravitated towards [few-shot prompting](https://www.promptingguide.ai/techniques/fewshot). 
+
+I went back through the raw job postings and listed out all of the tags that the information was contained in (`scripts/ollma/query_context.txt`). From this, I created the context with fewer, but specific, HTML tags and corresponding desired job details in JSON format.
+
+This is still producing inconsistent output. Will troubleshoot (3/15/2025).
 
 
 
