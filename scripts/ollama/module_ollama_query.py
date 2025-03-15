@@ -1,6 +1,8 @@
 from bs4 import BeautifulSoup
 from dotenv import load_dotenv
 from playwright.sync_api import sync_playwright
+from pydantic import BaseModel
+from typing import List
 import os
 
 
@@ -8,6 +10,16 @@ import os
 load_dotenv()
 LINKEDIN_USERNAME = os.getenv("LINKEDIN_USERNAME")
 LINKEDIN_PASSWORD = os.getenv("LINKEDIN_PASSWORD")
+
+
+class JobDetails(BaseModel):
+    """Schema for the response"""
+    company_name: str
+    job_title: str
+    salary_floor: List[str] 
+    salary_ceiling: List[str]  
+    office_status: str
+    job_location: List[str] 
 
 
 def extract_all_content(html: str) -> str:

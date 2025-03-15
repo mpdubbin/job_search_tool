@@ -1,6 +1,4 @@
 from dotenv import load_dotenv
-from pydantic import BaseModel
-from typing import List
 from module_ollama_query import * 
 import ollama
 import os
@@ -15,16 +13,6 @@ LINKEDIN_PASSWORD = os.getenv("LINKEDIN_PASSWORD")
 test_url = "https://elderresearch.hrmdirect.com/employment/job-opening.php?req=3176662&req_loc=351584&&#job"
 html = webpage_call(test_url, LINKEDIN_USERNAME, LINKEDIN_PASSWORD)
 
-
-class JobDetails(BaseModel):
-    """Schema for the response"""
-    company_name: str
-    job_title: str
-    salary_floor: List[str] 
-    salary_ceiling: List[str]  
-    office_status: str
-    job_location: List[str] 
-    
 
 with open('scripts/ollama/query_context.txt', 'r') as f:
     context = f.read()
