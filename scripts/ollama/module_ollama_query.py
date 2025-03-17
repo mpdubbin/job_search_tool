@@ -12,14 +12,30 @@ LINKEDIN_USERNAME = os.getenv("LINKEDIN_USERNAME")
 LINKEDIN_PASSWORD = os.getenv("LINKEDIN_PASSWORD")
 
 
-class JobDetails(BaseModel):
-    """Schema for the response"""
-    company_name: str
+class JobTitle(BaseModel):
+    """Schema for the job title"""
     job_title: str
-    salary_floor: List[str] 
-    salary_ceiling: List[str]  
+
+class CompanyName(BaseModel):
+    """Schema for the company name"""
+    company_name: str
+
+class SalaryFloor(BaseModel):
+    """Schema for the salary floor"""
+    salary_floor: int  
+
+class SalaryCeiling(BaseModel):
+    """Schema for the salary ceiling"""
+    salary_ceiling: int    
+
+class OfficeStatus(BaseModel):
+    """Schema for the office status"""
     office_status: str
-    job_location: List[str] 
+
+class Location(BaseModel):
+    """Schema for the location"""
+    location: str
+
 
 
 def extract_all_content(html: str) -> str:
@@ -28,6 +44,18 @@ def extract_all_content(html: str) -> str:
     
     # Return the entire HTML including all tags
     return str(soup)
+
+
+def extract_targeted_content(html):
+    """Extracts job title-related content from HTML."""
+    soup = BeautifulSoup(html, 'html.parser')
+    
+    # Get job title candidates from <title>, <h1>, and <h2>
+    title_tags = [tag.get_text(strip=True) for tag in soup.find_all(['title', 'h1', 'h2', 'p', 'li', 'tr', 'td'])]
+    
+    # Join extracted content into a clean format
+    cleaned_text = "\n".join(title_tags)
+    return cleaned_text
 
 
 def get_full_page_html(url: str) -> str:
@@ -39,7 +67,7 @@ def get_full_page_html(url: str) -> str:
         page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
         page.wait_for_timeout(5000)
         
-        filtered_content = extract_all_content(page.content())
+        filtered_content = extract_targeted_content(page.content())
         browser.close()
         
         return filtered_content
@@ -62,7 +90,7 @@ def get_full_page_url_linkedin(url: str, linkedin_username: str, linkedin_passwo
         page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
         page.wait_for_timeout(5000)
         
-        filtered_content = extract_all_content(page.content())
+        filtered_content = extract_targeted_content(page.content())
         browser.close()
         
         return filtered_content

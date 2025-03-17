@@ -270,9 +270,14 @@ I went back through the raw job postings and listed out all of the tags that the
 
 This is still producing inconsistent output. Will troubleshoot (3/15/2025).
 
+After some more YouTube videos, articles, and conversations with developer friends, here are some ideas for improving the AI's response:
+- ask for only 1 item at a time (rather than full Json, only 1 key. Then make a bunch of separate queries)
+- put the instructions in the "system prompt" (rather than the user-prompt, so the overload of html doesn't confuse it, and it forgets what you want it to do)
+- split the html into a few chunks, and it can answer with the answer or NULL. Then you piece it together in a for-loop
 
+I will try those now.
 
-
+Llama3.2 on my 18GB RAM machine is still getting confused with job postings with JavaScript-heavy elements and SVGs. I am going to revert back to pulling partial webapges instead of entire webpages and try the updated prompting methods.
 
 
 
