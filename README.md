@@ -294,7 +294,7 @@ The idea now is to create a tool where the user can input a url, press go, and h
 |Donut Delicatessen|Dubbin's Delicious Donut Dispensary|dubbinsdonuts.com|10000|20000|In-Office|Donutland, DE|Applied|
 |Dorito's Devourer|Dubbin's Delicious Dorito's Dispensary|dubbinsoritos.com|20000|30000|Remote||Rejected|
 
-
+I'm going with Python Shiny. 
 
 
 README In Progress
