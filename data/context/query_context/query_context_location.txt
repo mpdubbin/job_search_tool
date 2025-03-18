@@ -1,0 +1,54 @@
+I am providing two job postings. In the blocks below, denoted by ####, the provided text correspond to a single job posting and contains pre-parsed HTML tags from the job posting's webpage. It also contains pre-parsed JSON for the job-related details that I'm interested in obtaining. I'm interested in the following job-related details:
+
+- **Job Title**
+- **Company Name**
+- **Salary** (if available)
+- **Location**
+- **Office Status** (On-site, Hybrid, Remote)
+
+I've already gone through the webpages, found the relevant HTML tags, and structured the details in JSON format. This is so that you understand the relationship between the HTML and the JSON.
+
+If there is a salary range given, such as $146,900 - $220,300, then $146,900 is the salary_floor and $220,300 is the salary_ceiling.
+If there are multiple locations, such as "New York, NY is $98,000 to $131,300 per year and in Santa Monica, CA is $93,400 to $125,200 per year", then output the location and salaries as lists.
+
+####
+**HTML tags**
+<title>Data Analyst  - Careers At Elder Research</title>
+<h2>Data Analyst </h2>	
+<p><strong>Hybrid - Must be located in the DC Metro area to attend regularly scheduled meetings </strong></p>
+<p><strong>Location of Role - Washington, DC Metro </strong></p>
+<tr><td class="viewFieldName"><b>Location:</b></td>
+<td class="viewFieldValue">Arlington, VA<br></td></tr>
+
+**Structured JSON Output**
+{
+    "company": "Elder Research",
+    "job_title": "Data Analyst",
+    "salary_floor": null,
+    "salary_ceiling": null, 
+    "office_status": "Hybrid",
+    "office_location": "Washington, DC Metro"
+}
+####
+**HTML tags**
+<h1 class="Copy__title">Data Analyst</h1>
+<h1 class="Copy__title">Data Analyst</h1>
+<h2 id="about-stripe">About Stripe</h2>
+<h1 class="Copy__title">Pay and benefits</h1>
+<p>
+  The annual US base salary range for this role is $146,900 - $220,300.
+</p>
+<h1 class="Copy__title">Hybrid work at Stripe</h1>
+<p>This role is available either in an office or a remote location...</p>
+<p>Stripe is a financial infrastructure platform for businesses. Millions of companies—from the world’s largest enterprises to the most ambitious startups—use Stripe to accept payments, grow their revenue, and accelerate new business opportunities. Our mission is to increase the GDP of the internet, and we have a staggering amount of work ahead. That means you have an unprecedented opportunity to put the global economy within everyone’s reach while doing the most important work of your career.</p>
+<p>This role is available either in an office or a remote location (typically, 35+ miles or 56+ km from a Stripe office).</p>
+
+**Structured JSON Output**
+{
+    "company": "Stripe",
+    "job_title": "Data Analyst",
+    "salary_floor": 146000,
+    "salary_ceiling": 220300, 
+    "office_status": "Remote",
+    "office_location": null
+}

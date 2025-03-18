@@ -1,0 +1,43 @@
+Between the #### below are HTML tags containing information from a job posting webpage.
+
+####
+**HTML tags**
+<title>Data Analyst  - Careers At Elder Research</title>
+<h2>Data Analyst </h2>	
+<p><strong>Hybrid - Must be located in the DC Metro area to attend regularly scheduled meetings </strong></p>
+<p><strong>Location of Role - Washington, DC Metro </strong></p>
+<tr><td class="viewFieldName"><b>Location:</b></td>
+<td class="viewFieldValue">Arlington, VA<br></td></tr>
+####
+
+Between the #### below is the office status from that same job posting webpage. Office status options are [hybrid, remote, in-office]. If none are specified, that typically means the job is in-office.
+
+####
+{
+  "office_status": 'hybrid",
+}
+####
+
+---
+
+Between the #### below is another example of HTML tags containing information from a job posting webpage.
+
+####
+**HTML tags**
+<h1 class="Copy__title">Data Analyst</h1>
+<h1 class="Copy__title">Data Analyst</h1>
+<h2 id="about-stripe">About Stripe</h2>
+<h1 class="Copy__title">Pay and benefits</h1>
+<p>
+  The annual US base salary range for this role is $146,900 - $220,300.
+</p>
+<h1 class="Copy__title">Hybrid work at Stripe</h1>
+<p>This role is available either in an office or a remote location...</p>
+<p>Stripe is a financial infrastructure platform for businesses. Millions of companies—from the world’s largest enterprises to the most ambitious startups—use Stripe to accept payments, grow their revenue, and accelerate new business opportunities. Our mission is to increase the GDP of the internet, and we have a staggering amount of work ahead. That means you have an unprecedented opportunity to put the global economy within everyone’s reach while doing the most important work of your career.</p>
+<p>This role is available either in an office or a remote location (typically, 35+ miles or 56+ km from a Stripe office).</p>
+
+And below, between the ####, is the office status from that same job posting webpage. Office status options are [hybrid, remote, in-office]. If none are specified, that typically means the job is in-office.
+
+{
+  "office_status": "remote"
+}
