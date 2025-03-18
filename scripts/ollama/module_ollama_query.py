@@ -1,5 +1,13 @@
-# Models
+import json
+import ollama
+import os
+from bs4 import BeautifulSoup
+from dotenv import load_dotenv
+from playwright.sync_api import sync_playwright
 from pydantic import BaseModel
+
+
+# Models
 
 class JobTitle(BaseModel):
     """Schema for the job title"""
@@ -39,10 +47,25 @@ def attributes_dict() -> dict:
 
 
 # Webscraping
-from bs4 import BeautifulSoup
-from dotenv import load_dotenv
-from playwright.sync_api import sync_playwright
-import os
+
+def extract_all_content(html: str) -> str:
+    """Extract all HTML tags and their content."""
+    soup = BeautifulSoup(html, "html.parser")
+    
+    # Return the entire HTML including all tags
+    return str(soup)
+
+
+def extract_targeted_content(html: str) -> str:
+    """Extracts job title-related content from HTML."""
+    soup = BeautifulSoup(html, 'html.parser')
+    
+    # Get job title candidates from <title>, <h1>, and <h2>
+    title_tags = [tag.get_text(strip=True) for tag in soup.find_all(['title', 'h1', 'h2', 'p', 'li', 'tr', 'td'])]
+    
+    # Join extracted content into a clean format
+    cleaned_text = "\n".join(title_tags)
+    return cleaned_text
 
 
 def get_full_page_html(url: str) -> str:
@@ -93,32 +116,12 @@ def webpage_call(url: str, linkedin_username: str, linkedin_password: str) -> st
         return html_content
     
 
-def extract_all_content(html: str) -> str:
-    """Extract all HTML tags and their content."""
-    soup = BeautifulSoup(html, "html.parser")
-    
-    # Return the entire HTML including all tags
-    return str(soup)
-
-
-def extract_targeted_content(html: str) -> str:
-    """Extracts job title-related content from HTML."""
-    soup = BeautifulSoup(html, 'html.parser')
-    
-    # Get job title candidates from <title>, <h1>, and <h2>
-    title_tags = [tag.get_text(strip=True) for tag in soup.find_all(['title', 'h1', 'h2', 'p', 'li', 'tr', 'td'])]
-    
-    # Join extracted content into a clean format
-    cleaned_text = "\n".join(title_tags)
-    return cleaned_text
-    
-
 def load_env_variables() -> dict:
     """Load environment variables."""
     load_dotenv()
     return {
-        "linkedin_username": os.getenv("linkedin_username"),
-        "linkedin_password": os.getenv("linkedin_username"),
+        "linkedin_username": os.getenv("LINKEDIN_USERNAME"),
+        "linkedin_password": os.getenv("LINKEDIN_PASSWORD"),
         "model": os.getenv("MODEL")
     }
 
@@ -131,8 +134,6 @@ def read_txt_file(file_path: str) -> str:
 
 
 # Ollama
-import json
-import ollama
 
 
 def ollama_chat(env_variables: dict, attributes_dict_key: str, attributes_dict_value: str, html: str) -> str:
