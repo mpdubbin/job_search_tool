@@ -26,7 +26,8 @@ class Location(BaseModel):
     location: str
 
 
-def attributes_dict():
+def attributes_dict() -> dict:
+    """Dictoinary containing job attributes and their corresponding pydantic dictionary."""
     return  {
         'job_title': JobTitle,
         'company_name': CompanyName,
@@ -83,6 +84,7 @@ def get_full_page_url_linkedin(url: str, linkedin_username: str, linkedin_passwo
 
 
 def webpage_call(url: str, linkedin_username: str, linkedin_password: str) -> str:
+    """URL request that returns the html content of that webpage."""
     if 'linkedin' in url:
         html_content = get_full_page_url_linkedin(url, linkedin_username, linkedin_password)
         return html_content
@@ -99,7 +101,7 @@ def extract_all_content(html: str) -> str:
     return str(soup)
 
 
-def extract_targeted_content(html):
+def extract_targeted_content(html: str) -> str:
     """Extracts job title-related content from HTML."""
     soup = BeautifulSoup(html, 'html.parser')
     
@@ -111,7 +113,7 @@ def extract_targeted_content(html):
     return cleaned_text
     
 
-def load_env_variables():
+def load_env_variables() -> dict:
     """Load environment variables."""
     load_dotenv()
     return {
@@ -121,7 +123,7 @@ def load_env_variables():
     }
 
 
-def read_txt_file(file_path):
+def read_txt_file(file_path: str) -> str:
     """Read query context from a given file."""
     with open(file_path, "r") as f:
         return f.read()
@@ -133,7 +135,8 @@ import json
 import ollama
 
 
-def ollama_chat(env_variables, attributes_dict_key, attributes_dict_value, html):
+def ollama_chat(env_variables: dict, attributes_dict_key: str, attributes_dict_value: str, html: str) -> str:
+    """Send context and message to Ollama."""
 
     context = read_txt_file(
         f'data/context/role_system/role_system_content_{attributes_dict_key}.txt').format(
@@ -160,7 +163,8 @@ def ollama_chat(env_variables, attributes_dict_key, attributes_dict_value, html)
     return response['message']['content'] 
 
 
-def get_attributes(attributes_dict, env_variables, html):
+def get_attributes(attributes_dict: dict, env_variables: dict, html: str) -> dict:
+    """Loop through all job details, query Ollama, and record response in a dictionary."""
     job_details = {}
     for key, value in attributes_dict.items():
         response = json.loads(ollama_chat(env_variables, key, value, html))
