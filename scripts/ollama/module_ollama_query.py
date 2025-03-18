@@ -1,4 +1,4 @@
-# Pydantic models
+# Models
 from pydantic import BaseModel
 
 class JobTitle(BaseModel):
@@ -25,6 +25,16 @@ class Location(BaseModel):
     """Schema for the location"""
     location: str
 
+
+def attributes_dict():
+    return  {
+        'job_title': JobTitle,
+        'company_name': CompanyName,
+        'salary_floor': SalaryFloor,
+        'salary_ceiling': SalaryCeiling,
+        'office_status': OfficeStatus,
+        'location': Location
+    }
 
 
 # Webscraping
@@ -119,7 +129,10 @@ def read_txt_file(file_path):
 
 
 # Ollama
+import json
 import ollama
+
+
 def ollama_chat(env_variables, attributes_dict_key, attributes_dict_value, html):
 
     context = read_txt_file(
@@ -145,3 +158,12 @@ def ollama_chat(env_variables, attributes_dict_key, attributes_dict_value, html)
     )
 
     return response['message']['content'] 
+
+
+def get_attributes(attributes_dict, env_variables, html):
+    job_details = {}
+    for key, value in attributes_dict.items():
+        response = json.loads(ollama_chat(env_variables, key, value, html))
+        job_details[key] = response[key] 
+
+    return job_details
