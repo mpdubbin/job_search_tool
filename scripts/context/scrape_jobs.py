@@ -1,7 +1,7 @@
 from playwright.sync_api import sync_playwright
 
 from dotenv import load_dotenv
-from scripts.context_obsolete.module_scrape import *
+from context.module_scrape import *
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
