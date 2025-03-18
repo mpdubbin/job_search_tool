@@ -279,8 +279,20 @@ I will try those now.
 
 Llama3.2 on my 18GB RAM machine is still getting confused with job postings with JavaScript-heavy elements and SVGs. I am going to revert back to pulling partial webapges instead of entire webpages and try the updated prompting methods.
 
+**Final Prompting Update**
+I provide the prompts located in `data/context` to ollama. I discovered that combining options 1 & 2 above gave the most accurate responses. There are still issues with the following two types of job postings:
+1. job postings with multiple locations. This would require some additional prompt engineering.
+2. Job postings with no salary listed. Llama3.2 defaults to the salary I provided in the context example. This would require some additional prompt engineering.
 
+I decided to allow these errors for the first pass of this project, because in actuality I would use a more robust model's API (I input these raw html files into ChatGPT 4.o and it returned the job posting details flawlessly) rather than these small local models. In the GUI tool I plan to add a feature that, after Ollama pulls the job details, the user can edit the details before inserting it into the table. [Good Enough, Proceed On](https://www.lizardbrain.com/blog/2016/10/10/2016-10-10-gepo-and-fpo). 
 
+## The GUI
+The idea now is to create a tool where the user can input a url, press go, and have the job details there automically for a table, such as this:
+
+|Organization|Role|Website|Salary Floor|Salary Ceiling|Office Status|Location|Application Status|
+|---|---|---|---|---|---|---|--|
+|Donut Delicatessen|Dubbin's Delicious Donut Dispensary|dubbinsdonuts.com|10000|20000|In-Office|Donutland, DE|Applied|
+|Dorito's Devourer|Dubbin's Delicious Dorito's Dispensary|dubbinsoritos.com|20000|30000|Remote||Rejected|
 
 
 

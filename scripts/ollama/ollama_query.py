@@ -1,6 +1,6 @@
 from module_ollama_query import * 
 
-url = "https://jobs.ashbyhq.com/equip/2f34e681-461b-47ef-a86a-182e3ffc39a8?src=LinkedIn+Posting"
+url = "https://www.linkedin.com/jobs/collections/hiring-in-network/?currentJobId=4138637806&origin=SOCIAL_SEEKING_HIRING_IN_NETWORK_IN_APP_NOTIFICATION&originToLandingJobPostings=4158601156"
 env_variables = load_env_variables()
 html = webpage_call(url, 
                     env_variables['linkedin_username'], 
