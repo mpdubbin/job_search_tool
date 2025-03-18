@@ -1,0 +1,1 @@
+I am providing the HTML from a webpage for a job listing. Please return only the job title and it must be in JSON format. {html}
