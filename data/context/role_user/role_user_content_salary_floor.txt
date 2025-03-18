@@ -1,1 +1,1 @@
-I am providing the HTML from a webpage for a job listing. Please return only the lower bound of the salary and it must be in JSON format. {html}
+I am providing the HTML from a webpage for a job listing. Please return only the lower bound of the salary and it must be in JSON format. Like in the first example I provided: if salary information is not available then return null. {html}

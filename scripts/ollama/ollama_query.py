@@ -1,6 +1,6 @@
 from module_ollama_query import * 
 
-url = "https://arkeabio.bamboohr.com/careers/48"
+url = "https://jobs.ashbyhq.com/equip/2f34e681-461b-47ef-a86a-182e3ffc39a8?src=LinkedIn+Posting"
 env_variables = load_env_variables()
 html = webpage_call(url, 
                     env_variables['linkedin_username'], 
@@ -13,3 +13,4 @@ if __name__ == "__main__":
                                  env_variables,
                                  html
                                  )
+    print(job_details)
