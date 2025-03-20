@@ -22,9 +22,11 @@ app_ui = ui.page_sidebar(
 def server(input, output, session):
     json_response = reactive.value("") 
     save_message = reactive.value("")
+    trigger_refresh = reactive.value(0)
 
     @render.data_frame
     def interactive_table():
+        trigger_refresh()
         conn = sqlite3.connect("data/sqlite/database.db")
         df = pd.read_sql_query(f"SELECT * FROM jobs;", conn)
         conn.close()
@@ -35,8 +37,12 @@ def server(input, output, session):
     async def process_result():
         text_to_process = input.text_input()
         result = await ollama.ollama_response(text_to_process)  
-        json_response.set(json.dumps(result))  
-        ui.update_text_area("json_editor", value=json_response())  # Populate the editor with the response
+
+        if isinstance(result, dict):
+            result["website"] = text_to_process
+        
+        json_response.set(json.dumps(result))
+        ui.update_text_area("json_editor", value=json_response())
 
     @reactive.effect
     @reactive.event(input.save_button)
@@ -45,6 +51,8 @@ def server(input, output, session):
             edited_json = json.loads(input.json_editor())
             insert_json_into_db(edited_json)
             save_message.set(f"{edited_json['job_title'].title()} from {edited_json['company_name'].title()} successfully inserted into database!")
+            trigger_refresh.set(trigger_refresh() + 1)  # Increment value to trigger reactivity
+
         except json.JSONDecodeError:
             save_message.set("Error: Invalid JSON format")
 
