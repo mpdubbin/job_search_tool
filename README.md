@@ -332,6 +332,7 @@ So main task 1 and 2 are complete. And half of 3 is complete: I still need to de
 - Add a feature where the user can upload their resume, and this tool will automatically compare their skills with the skills in the job posting
 - Maybe batch link pulls?
 - Slider to filter the table by salary
+- Integrate with email account - so when an application rejection comes through, the table will automatically update
 
 **Networking tracker**:  
     - Contact A recommended Job A  
