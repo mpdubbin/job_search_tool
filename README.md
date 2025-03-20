@@ -18,7 +18,8 @@ LINKEDIN_USERNAME = ""
 LINKEDIN_PASSWORD = ""
 MODEL = "llama3.2"
 ```
-3. run app.py
+3. `data/initial_job_table.csv` is full of dummy data. Feel free to edit it with your own job applications beforehand. If you do, run `scripts/database/initial_setup.py` before moving on to step 4.
+4.run app.py
 
 ## Flow-of-Thought Walkthrough (this is a mini-blog where I write down my thoughts throughout the process)
 
