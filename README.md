@@ -333,6 +333,6 @@ So main task 1 and 2 are complete. And half of 3 is complete: I still need to de
 - Maybe batch link pulls?
 - Slider to filter the table by salary
 
-**Networking tracker**:
-    - Contact A recommended Job A
+**Networking tracker**:  
+    - Contact A recommended Job A  
     - Contact B connected me with Contact C who recommended Job B
