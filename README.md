@@ -5,6 +5,8 @@ In the flooded tech market of early 2025 (hopefully future me will look back and
 
 ![programmer automation meme](assets/readme/0cm6yx27tez21.jpg)
 
+This is the basic outline of the project.
+![basic outline](assets/readme/Screenshot%202025-03-20%20at%2010.41.09 AM.png)
 
 ## Flow-of-Thought Walkthrough
 
@@ -295,6 +297,8 @@ The idea now is to create a tool where the user can input a url, press go, and h
 |Dorito's Devourer|Dubbin's Delicious Dorito's Dispensary|dubbinsoritos.com|20000|30000|Remote||Rejected|
 
 I'm going with Python Shiny. 
+
+I actually wrote out all of the jobs I've applied to (and have been rejected from) but don't want to put any companies on blast with their rejection of a great candidate. So I prepopulated the example table with random ones from ChatGPT.
 
 
 README In Progress
