@@ -298,8 +298,14 @@ The idea now is to create a tool where the user can input a url, press go, and h
 
 I'm going with Python Shiny. 
 
-I actually wrote out all of the jobs I've applied to (and have been rejected from) but don't want to put any companies on blast with their rejection of a great candidate. So I prepopulated the example table with random ones from ChatGPT.
+I actually wrote out all of the jobs I've applied to (and have been rejected from) but don't want to put any companies on blast with their rejection of a great candidate. So I prepopulated the example table with random ones from ChatGPT, added it to a .csv file, and created the table in Shiny (with automatic filters) using that .csv file. I then reworked the ollama_chat() function for compatability with Shiny (i.e., change from an executable script to a straight-up function), to which I configured Shiny to output Ollama's response in the GUI for debugging purposes. Below is the current stage of the product, with the filterable data table and the Ollama output of a job listing.
 
+![ollama output and example data table from .csv file](assets/readme/Screenshot%202025-03-20%20at%2011.15.53 AM.png)
+
+Three main tasks left for the MVP:
+1. Allow the user to edit the Ollama output (if Ollama returned incorrect information, for example if Ollama returned an incorrect salary_floor)
+2. Add that information to a new line in the table
+3. Turn the table and GUI into a CRUD app using SQLite
 
 README In Progress
 ---

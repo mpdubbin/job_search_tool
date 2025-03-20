@@ -1,0 +1,46 @@
+company_name,job_title,website,salary_floor,salary_ceiling,office_status,location,application_status
+DataBridge Analytics,Cloud Data Architect,https://www.hiringnow.com/apply,,,remote,,applied
+CyberLogic Systems,Machine Learning Engineer,https://www.careers.example.com/job,70410,106142,remote,,applied
+OmniTech Solutions,BI Developer,https://www.fakerecruiter.com/openings,148391,161623,in-office,"New York, NY",applied
+Summit AI Research,Business Intelligence Analyst,https://www.careers.example.com/job,107812,144836,remote,,applied
+Quantum Data Solutions,Cloud Data Architect,https://www.fakejobsite.com/apply,143877,163753,in-office,"New York, NY",rejected
+CyberLogic Systems,Senior Data Scientist,https://www.fakerecruiter.com/openings,138327,156230,remote,,rejected
+CyberLogic Systems,Senior Data Scientist,https://www.mockjobboard.com/listing,65430,87448,remote,,withdrawn
+CyberLogic Systems,Business Intelligence Analyst,https://www.mockjobboard.com/listing,84732,130140,hybrid,"Los Angeles, CA",withdrawn
+Summit AI Research,Data Engineer,https://www.fakerecruiter.com/openings,,,hybrid,"Washington, D.C.",applied
+OmniTech Solutions,Machine Learning Engineer,https://www.fakejobsite.com/apply,78893,93466,in-office,"Boston, MA",applied
+CyberLogic Systems,BI Developer,https://www.fakejobsite.com/apply,82720,121410,hybrid,"Atlanta, GA",applied
+DataBridge Analytics,BI Developer,https://www.fakerecruiter.com/openings,71319,97978,hybrid,"Seattle, WA",applied
+InnovateAI,Machine Learning Engineer,https://www.fakejobsite.com/apply,119580,160199,in-office,"Denver, CO",applied
+DataBridge Analytics,Business Intelligence Analyst,https://www.hiringnow.com/apply,138622,183392,remote,,withdrawn
+DataBridge Analytics,Data Engineer,https://www.fakejobsite.com/apply,96819,143279,in-office,"New York, NY",interview
+InnovateAI,Business Intelligence Analyst,https://www.fakerecruiter.com/openings,118473,156224,hybrid,"Atlanta, GA",withdrawn
+InnovateAI,Predictive Modeler,https://www.fakejobsite.com/apply,,,hybrid,"Boston, MA",interview
+Summit AI Research,Predictive Modeler,https://www.careers.example.com/job,83818,132217,hybrid,"Washington, D.C.",offer
+Pioneer Tech Group,Senior Data Scientist,https://www.careers.example.com/job,90419,117294,remote,,rejected
+InnovateAI,BI Developer,https://www.fakejobsite.com/apply,91306,124786,in-office,"Denver, CO",rejected
+NextGen Metrics,BI Developer,https://www.hiringnow.com/apply,133598,183389,in-office,"Denver, CO",rejected
+Visionary Data Co.,Predictive Modeler,https://www.mockjobboard.com/listing,104624,148269,in-office,"Washington, D.C.",rejected
+Visionary Data Co.,Big Data Analyst,https://www.hiringnow.com/apply,107049,137442,in-office,"Los Angeles, CA",offer
+Summit AI Research,Senior Data Scientist,https://www.hiringnow.com/apply,111662,139511,in-office,"Denver, CO",rejected
+Pioneer Tech Group,Big Data Analyst,https://www.hiringnow.com/apply,,,in-office,"Chicago, IL",offer
+CyberLogic Systems,Big Data Analyst,https://www.fakejobsite.com/apply,130201,180201,hybrid,"San Francisco, CA",interview
+InnovateAI,Data Engineer,https://www.careers.example.com/job,91571,107310,remote,,offer
+NextGen Metrics,Business Intelligence Analyst,https://www.careers.example.com/job,134956,157498,remote,,applied
+OmniTech Solutions,Big Data Analyst,https://www.hiringnow.com/apply,80273,101922,in-office,"Seattle, WA",interview
+InnovateAI,Cloud Data Architect,https://www.fakejobsite.com/apply,144254,165853,hybrid,"Chicago, IL",rejected
+InnovateAI,BI Developer,https://www.hiringnow.com/apply,129333,144206,hybrid,"Atlanta, GA",applied
+InnovateAI,Big Data Analyst,https://www.mockjobboard.com/listing,138716,176197,remote,,rejected
+Quantum Data Solutions,Data Science Consultant,https://www.fakerecruiter.com/openings,,,hybrid,"Chicago, IL",applied
+InnovateAI,Cloud Data Architect,https://www.fakerecruiter.com/openings,64040,89806,hybrid,"Boston, MA",rejected
+CyberLogic Systems,Machine Learning Engineer,https://www.fakejobsite.com/apply,114777,138602,remote,,applied
+Summit AI Research,Data Engineer,https://www.careers.example.com/job,134341,162064,remote,,offer
+DataBridge Analytics,Cloud Data Architect,https://www.hiringnow.com/apply,112254,157481,in-office,"Austin, TX",interview
+InnovateAI,Machine Learning Engineer,https://www.fakejobsite.com/apply,106834,147967,in-office,"San Francisco, CA",rejected
+Summit AI Research,Machine Learning Engineer,https://www.mockjobboard.com/listing,130527,178537,in-office,"Seattle, WA",applied
+DataBridge Analytics,Senior Data Scientist,https://www.careers.example.com/job,144811,178634,remote,,rejected
+Quantum Data Solutions,Data Engineer,https://www.mockjobboard.com/listing,,,remote,,applied
+DataBridge Analytics,BI Developer,https://www.fakejobsite.com/apply,103934,121234,hybrid,"Seattle, WA",rejected
+CyberLogic Systems,Data Engineer,https://www.mockjobboard.com/listing,126019,145741,in-office,"Washington, D.C.",rejected
+InnovateAI,Cloud Data Architect,https://www.fakejobsite.com/apply,110154,133270,remote,,interview
+Summit AI Research,Predictive Modeler,https://www.fakerecruiter.com/openings,91048,122703,hybrid,"Atlanta, GA",applied

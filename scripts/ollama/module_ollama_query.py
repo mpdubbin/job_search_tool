@@ -3,7 +3,7 @@ import ollama
 import os
 from bs4 import BeautifulSoup
 from dotenv import load_dotenv
-from playwright.sync_api import sync_playwright
+from playwright.async_api import async_playwright
 from pydantic import BaseModel
 
 
@@ -68,24 +68,31 @@ def extract_targeted_content(html: str) -> str:
     return cleaned_text
 
 
-def get_full_page_html(url: str) -> str:
+async def get_full_page_html(url: str) -> str:
     """Scrape specified elements from a single webpage."""
-    with sync_playwright() as p:
-        browser = p.chromium.launch(headless=False)  # Must be false for Cloudflare
-        page = browser.new_page()
-        page.goto(url, wait_until="load")
-        page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
-        page.wait_for_timeout(5000)
-        
-        filtered_content = extract_targeted_content(page.content())
-        browser.close()
-        
-        return filtered_content
+    
+    p = await async_playwright().start()
+    browser = await p.chromium.launch(headless=False)  # Must be false for Cloudflare
+    context = await browser.new_context()
+    page = await context.new_page()
+    
+    await page.goto(url, wait_until="load")
+    await page.evaluate("window.scrollTo(0, document.body.scrollHeight)")  # <-- Add await
+    await page.wait_for_timeout(5000)  # <-- Add await
+    
+    html_content = await page.content()  # <-- Await this function
+    filtered_content = extract_targeted_content(html_content)  # Now pass the awaited content
+
+    await browser.close()
+    await p.stop()
+    
+    return filtered_content
+
 
 
 def get_full_page_url_linkedin(url: str, linkedin_username: str, linkedin_password: str) -> str:
     """Scrape specified elements from a single LinkedIn webpage."""
-    with sync_playwright() as p:
+    with async_playwright() as p:
         browser = p.chromium.launch(headless=False)  # Must be False for Cloudflare
         page = browser.new_page()
         
