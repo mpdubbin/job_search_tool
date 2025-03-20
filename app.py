@@ -1,5 +1,6 @@
 from scripts.database.json_to_db import insert_json_into_db
-from shiny import App, render, ui, reactive
+from shiny import App, ui, reactive
+from shiny.express import render
 import json
 import pandas as pd
 import scripts.ollama.ollama_query as ollama  
@@ -43,7 +44,7 @@ def server(input, output, session):
         if search_query:
             df = df[df.apply(lambda row: row.astype(str).str.lower().str.contains(search_query).any(), axis=1)]
 
-        return df
+        return render.DataGrid(df, editable=True)
 
     @reactive.effect
     @reactive.event(input.go_button)
