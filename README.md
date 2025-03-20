@@ -307,6 +307,12 @@ Three main tasks left for the MVP:
 2. Add that information to a new line in the table
 3. Turn the table and GUI into a CRUD app using SQLite
 
+This took a little finagling with Shiny, but the Ollama output is now output into an editable textfield *prior* to being added in the database. The user enters the URL, waits for the Ollama response which is output in the text field, can edit the text field, and then adds the data to the database (and therefore the table) with the "Save to Table" button. I also added a search bar that searches the entire table for capital-agnostic text.
+
+![table output](assets/readme/Screenshot%202025-03-20%20at%204.52.27 PM.png)
+
+So main task 1 and 2 are complete. And half of 3 is complete: I still need to develop the **U** and **D** functionality, which is especially important for updating the application status.
+
 README In Progress
 ---
 
