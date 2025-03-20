@@ -311,15 +311,18 @@ This took a little finagling with Shiny, but the Ollama output is now output int
 
 ![table output](assets/readme/Screenshot%202025-03-20%20at%204.52.27 PM.png)
 
-So main task 1 and 2 are complete. And half of 3 is complete: I still need to develop the **U** and **D** functionality, which is especially important for updating the application status.
-
-README In Progress
----
+So main task 1 and 2 are complete. And half of 3 is complete: I still need to develop the **U** and **D** functionality, which is especially important for updating the application status. However, this is good enough for now, and I will revisit this project at a later date. Time to move onto the next!
 
 ## Future Features:
 
-- User location or allow the user to input desired locations
-    - Preference for a specific city or region
+- Functionality to update cells and delete rows
+- This workflow currently cannot handle job postings with more than one location, or multiple office status options (like remote or in-office)
+- This workflow currently cannot handle hourly wages
+- Add an export to Excel button
+- Add a feature where the user can upload their resume, and this tool will automatically compare their skills with the skills in the job posting
+- Maybe batch link pulls?
+- Slider to filter the table by salary
+
 - Networking tracker:
     - Contact A recommended Job A
     - Contact B connected me with Contact C who recommended Job B
