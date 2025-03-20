@@ -324,7 +324,7 @@ This took a little finagling with Shiny, but the Ollama output is now output int
 
 ![table output](assets/readme/Screenshot%202025-03-20%20at%204.52.27 PM.png)
 
-So main task 1 and 2 are complete. And half of 3 is complete: I still need to develop the **U** and **D** functionality, which is especially important for updating the application status. A friend showed me this Posit article that describes DataGrid (https://shiny.posit.co/blog/posts/shiny-python-0.9.0/) which allows for editing tables, but it does not automatically update the underlying database. That may require further engineering.
+So main task 1 and 2 are complete. And half of 3 is complete: I still need to develop the **U** and **D** functionality, which is especially important for updating the application status. A friend showed me this Posit article that describes [DataGrid](https://shiny.posit.co/py/components/outputs/data-grid/) and this [announcement of DataGrid](https://shiny.posit.co/blog/posts/shiny-python-0.9.0/) which allows for editing tables, but it does not automatically update the underlying database. That may require further engineering.
 
 However, this is good enough for me for now, and I will revisit this project at a later date. Time to move onto the next project!
 
