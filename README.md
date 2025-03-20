@@ -18,7 +18,7 @@ MODEL = "llama3.2"
 ```
 3. run app.py
 
-## Flow-of-Thought Walkthrough
+## Flow-of-Thought Walkthrough (this is a mini-blog where I write down my thoughts throughout the process)
 
 My initial vision was a Numbers plug-in, where, when I pasted a job url into a cell in Numbers, the other fields (job title, company name, salary, etc.) would autopopulate. That way I keep the familiarity of Numbers and reduce the time spent copying and pasting (that meme is staring straight at me).   
 
