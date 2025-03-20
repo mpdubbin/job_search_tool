@@ -8,6 +8,8 @@ In the flooded tech market of early 2025 (hopefully future me will look back and
 This is the basic outline of the project.
 ![basic outline](assets/readme/Screenshot%202025-03-20%20at%2010.41.09 AM.png)
 
+An image of the GUI is at the bottom of this README. 
+
 ## To use
 1. install and have Ollama running
 2. set up environment variables in a .env at the root:
