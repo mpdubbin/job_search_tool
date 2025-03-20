@@ -8,6 +8,16 @@ In the flooded tech market of early 2025 (hopefully future me will look back and
 This is the basic outline of the project.
 ![basic outline](assets/readme/Screenshot%202025-03-20%20at%2010.41.09 AM.png)
 
+## To use
+1. install and have Ollama running
+2. set up environment variables in a .env at the root:
+```text
+LINKEDIN_USERNAME = ""
+LINKEDIN_PASSWORD = ""
+MODEL = "llama3.2"
+```
+3. run app.py
+
 ## Flow-of-Thought Walkthrough
 
 My initial vision was a Numbers plug-in, where, when I pasted a job url into a cell in Numbers, the other fields (job title, company name, salary, etc.) would autopopulate. That way I keep the familiarity of Numbers and reduce the time spent copying and pasting (that meme is staring straight at me).   
@@ -311,7 +321,7 @@ This took a little finagling with Shiny, but the Ollama output is now output int
 
 ![table output](assets/readme/Screenshot%202025-03-20%20at%204.52.27 PM.png)
 
-So main task 1 and 2 are complete. And half of 3 is complete: I still need to develop the **U** and **D** functionality, which is especially important for updating the application status. However, this is good enough for now, and I will revisit this project at a later date. Time to move onto the next!
+So main task 1 and 2 are complete. And half of 3 is complete: I still need to develop the **U** and **D** functionality, which is especially important for updating the application status. However, this is good enough for now, and I will revisit this project at a later date. Time to move onto the next project!
 
 ## Future Features:
 
@@ -323,6 +333,6 @@ So main task 1 and 2 are complete. And half of 3 is complete: I still need to de
 - Maybe batch link pulls?
 - Slider to filter the table by salary
 
-- Networking tracker:
+**Networking tracker**:
     - Contact A recommended Job A
     - Contact B connected me with Contact C who recommended Job B
